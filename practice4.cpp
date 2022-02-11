@@ -8,7 +8,7 @@ using namespace std;
 
 int shared_variable = 0, count, N;
 
-sem_t s_main, s_mtx;
+sem_t s_main;
 
 void consumer(int id) {
     while (true) { // Mantém a thread que não puder seguir em espera
