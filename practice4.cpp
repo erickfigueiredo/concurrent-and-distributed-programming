@@ -22,6 +22,8 @@ void consumer(int id) {
             sem_post(&s_main);
             return;
         }
+        sem_post(&s_main);
+
     }
 
     sem_wait(&s_main);
@@ -47,8 +49,8 @@ int main() {
 
     sem_destroy(&s_main); //Destroi o semáforo
 
-    assert((N*(N+1))/2 == shared_variable); // Confere o valor
-    
+    assert((N * (N + 1)) / 2 == shared_variable); // Confere o valor
+
     cout << shared_variable << endl;
     return 0;
 }
