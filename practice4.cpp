@@ -1,6 +1,7 @@
 #include <thread>
 #include <vector>
 #include <cassert>
+#include <unistd.h>
 #include <iostream>
 #include <semaphore.h>
 
@@ -14,17 +15,19 @@ void consumer(int id) {
     while (true) { // Mantém a thread que não puder seguir em espera
         sem_wait(&s_main);
         if (count - id >= 0) { // Se ela atender à condição
+            printf("> Thread %d entrou <\n", id);
             count -= id; // Decrementa e sai do semáforo
             sem_post(&s_main);
             break;
-
-        } else if (id > N) { // Se a thread ultrapassar o limit, ela sai do semáforo e da função
+        }
+        else if (id > N) { // Se a thread ultrapassar o limit, ela sai do semáforo e da função
             sem_post(&s_main);
             return;
         }
         sem_post(&s_main);
-
     }
+
+    sleep(1);
 
     sem_wait(&s_main);
     shared_variable += id; // opera sobre a variavel compartilhada
