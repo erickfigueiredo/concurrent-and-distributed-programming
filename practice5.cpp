@@ -28,7 +28,7 @@ int main() {
     cin >> n;
 
     auto start = chrono::system_clock::now();
-#pragma omp parallel for default(none) private(count) shared(n, primes, cout)
+#pragma omp parallel for default(none) schedule(guided, 8) private(count) shared(n, primes, cout)
     for (int i = 2; i < n; i++) {
         for (int j = 1; j <= (int)sqrt(i); j++) {
             if (i != 2 && i % 2 == 0) { count = 2; break; }
